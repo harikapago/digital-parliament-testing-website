@@ -1,0 +1,91 @@
+import React, { useState, useEffect } from "react";
+import Con from "./constituency";
+
+
+// const apikey =AIzaSyAv0p6fs2O9UC3eCxTGyWC-gS1QOOphR3Y;
+const LocationInfo = () => {
+  const [locationData, setLocationData] = useState(null);
+  const [Address,setAddress]=useState();
+  const [pincode,setPincode]=useState("");
+
+  useEffect(() => {
+    // Check if the Geolocation API is available in the browser
+    if (navigator.geolocation) {
+      // Get the current position
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+console.log(longitude,latitude);
+          // Use latitude and longitude to fetch location information from a reverse geocoding API
+          // Replace the API endpoint with a real reverse geocoding API endpoint
+          // const reverseGeocodingApi = `https://maps.googleapis.com/maps/api/geocode/json?latlng=16.5817,81.6360&key=AIzaSyDL2wgPtwp5lxecT0reqUiCmr1etW50t1I`;
+          const reverseGeocodingApi = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyDL2wgPtwp5lxecT0reqUiCmr1etW50t1I`;
+        //  const  url = "https://www.googleapis.com/civicinfo/v2/voterinfo?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA+94043&key=AIzaSyDL2wgPtwp5lxecT0reqUiCmr1etW50t1I"
+
+          fetch(reverseGeocodingApi)
+            .then((response) => response.json())
+            .then((data) => {
+              setLocationData(data.results[0].formatted_address);
+              console.log(data);
+              console.log(data.results[0].formatted_address);
+
+              console.log(data.results[0].address_components);
+              
+          // Filter items with 'postal_code' in the 'types' array
+           const postalCodeData = data.results[0].address_components.filter(item => item.types.includes('postal_code'));
+
+          // Log the filtered data
+            console.log(postalCodeData[0].long_name);
+            setPincode(postalCodeData[0].long_name)
+
+
+               setAddress(data.results[0].address_components);
+
+ 
+
+            })
+            .catch((error) => {
+              console.error("Error fetching location data:", error);
+            });
+        },
+        (error) => {
+          console.error("Error getting location:", error);
+        }
+      );
+    } else {
+      console.error("Geolocation is not supported in this browser.");
+    }
+  }, []); // Empty dependency array ensures the effect runs only once
+
+
+
+  return (
+    <> <div>
+      <h2>Location Information</h2>
+      {locationData ? (
+        <div>
+          {/* <p>postal_code: {postalCode}</p> */}
+          <p>Constituency: {locationData}</p>
+          {Address.map((component, index) => (
+        <div key={index}>
+          <p>Long Name: {component.long_name}</p>
+          <p>Types: {component.types.join(', ')}</p>
+          
+          
+
+        </div>
+      ))}
+        </div>
+      ) : (
+        <p>Loading location data...</p>
+      )}
+
+
+    </div>
+
+    <Con pinvalue={pincode}/>
+   </>
+  );
+};
+
+export default LocationInfo;

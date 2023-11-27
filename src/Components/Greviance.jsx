@@ -40,6 +40,10 @@ const GrievanceForm = () => {
     }
   };
 
+
+
+
+  
   return (
     <div className="container" style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
       <h2>Post a Grievance</h2>
@@ -49,6 +53,7 @@ const GrievanceForm = () => {
           <input
             type="text"
             name="title"
+            required
             value={formData.title}
             onChange={handleInputChange}
           />
@@ -57,6 +62,7 @@ const GrievanceForm = () => {
           <label>Description:</label>
           <textarea
             name="description"
+            required
             value={formData.description}
             onChange={handleInputChange}
           ></textarea>
@@ -75,6 +81,7 @@ const GrievanceForm = () => {
           <input
             type="file"
             name="image"
+            required
             accept="image/*"
             onChange={handleInputChange}
           />
@@ -86,3 +93,5 @@ const GrievanceForm = () => {
 };
 
 export default GrievanceForm;
+
+
