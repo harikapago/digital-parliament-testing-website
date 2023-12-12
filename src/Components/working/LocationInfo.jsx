@@ -19,9 +19,9 @@ const LocationInfo = () => {
 console.log(longitude,latitude);
           // Use latitude and longitude to fetch location information from a reverse geocoding API
           //  opencage api 
-const reverseGeocodingApi = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=8bbcc4b117db4c3f9c0bdc4c959bfdd0`;
+// const reverseGeocodingApi = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=8bbcc4b117db4c3f9c0bdc4c959bfdd0`;
  
-// const reverseGeocodingApi = `https://api.opencagedata.com/geocode/v1/json?q=17.4106+78.4652&key=8bbcc4b117db4c3f9c0bdc4c959bfdd0`;
+const reverseGeocodingApi = `https://api.opencagedata.com/geocode/v1/json?q=17.4106+78.4652&key=8bbcc4b117db4c3f9c0bdc4c959bfdd0`;
 
 
           fetch(reverseGeocodingApi)
