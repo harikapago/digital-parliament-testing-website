@@ -150,7 +150,7 @@ const handleSubmit = async (e) => {
         </label>
         <br />
         <label>
-          Supporting Photos:
+          Supporting Photos: (You can upload upto 3 photos only)
           <input type="file" multiple onChange={handlePhotoChange} />
         </label>
         <br />
